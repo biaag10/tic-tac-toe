@@ -1,0 +1,25 @@
+
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - ./frontend:/app/frontend  # Opcional, se você quiser que o frontend seja atualizado diretamente
+    networks:
+      - tic-tac-toe-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    networks:
+      - tic-tac-toe-network
+    depends_on:
+      - backend
+
+networks:
+  tic-tac-toe-network:
+    driver: bridge

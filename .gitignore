@@ -1,0 +1,5 @@
+git init
+git add .
+git commit -m "Início do projeto Jogo da Velha"
+git remote add origin <repositório_url>
+git push -u origin master
