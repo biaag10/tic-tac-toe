@@ -91,4 +91,4 @@ POST	/move	Realiza uma jogada (posição)
 POST	/reset	Reinicia o jogo
 
 👥 Equipe
-Desenvolvido com 💡 por Sítio Sem a Cuca.
+Desenvolvido com 💡 por Bianca Andrade, Pedro Lima e Rafael Athaliba.
