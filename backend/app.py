@@ -11,7 +11,12 @@ db = Database()
 @app.route('/game', methods=['GET'])
 def get_game_state():
     # Retorna o estado atual do jogo (tabuleiro)
-    return jsonify({'board': game.get_board(), 'current_player': game.current_player})
+    return jsonify({
+        'board': game.get_board(), 
+        'current_player': game.current_player,
+        'winner': game.winner,
+        'is_draw': game.is_draw()
+    })
 
 @app.route('/move', methods=['POST'])
 def make_move():
@@ -21,8 +26,27 @@ def make_move():
     
     if game.make_move(position):
         db.save_game(game.get_board(), game.current_player)
-        return jsonify({'message': 'Move made', 'board': game.get_board(), 'winner': check_winner()})
+        return jsonify({
+            'message': 'Move made', 
+            'board': game.get_board(), 
+            'winner': game.winner,
+            'is_draw': game.is_draw(),
+            'current_player': game.current_player
+        })
     return jsonify({'message': 'Invalid move'}), 400
+
+@app.route('/reset', methods=['POST'])
+def reset_game():
+    # Reinicia o jogo para uma nova partida
+    game.reset_game()
+    db.save_game(game.get_board(), game.current_player)
+    return jsonify({
+        'message': 'Game reset successfully',
+        'board': game.get_board(),
+        'current_player': game.current_player,
+        'winner': game.winner,
+        'is_draw': game.is_draw()
+    })
 
 def check_winner():
     # Verifique se o jogador atual ganhou

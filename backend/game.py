@@ -30,3 +30,13 @@ class TicTacToe:
                 self.winner = self.board[a]  # Define o vencedor
                 return True  # Se houver vencedor, retorna True
         return False  # Não há vencedor
+
+    def is_draw(self):
+        # Verifica se o jogo terminou em empate
+        return ' ' not in self.board and self.winner is None
+
+    def reset_game(self):
+        # Reinicia o jogo para uma nova partida
+        self.board = [' '] * 9
+        self.current_player = 'X'
+        self.winner = None
